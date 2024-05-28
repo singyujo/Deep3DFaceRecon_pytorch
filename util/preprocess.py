@@ -199,7 +199,15 @@ def align_img(img, lm, lm3D, mask=None, target_size=224., rescale_factor=102.):
 
     # processing the image
     img_new, lm_new, mask_new = resize_n_crop_img(img, lm, t, s, target_size=target_size, mask=mask)
-    trans_params = np.array([w0, h0, s, t[0], t[1]])
+
+    # Extract the first element from t[0] and t[1] to convert them to numbers
+    tx, ty = t[0][0], t[1][0]
+
+    # Debugging outputs
+    print(f"w0: {w0}, h0: {h0}, s: {s}, tx: {tx}, ty: {ty}")
+    print(f"Types -> w0: {type(w0)}, h0: {type(h0)}, s: {type(s)}, tx: {type(tx)}, ty: {type(ty)}")
+
+    trans_params = np.array([w0, h0, s, tx, ty])
 
     return trans_params, img_new, lm_new, mask_new
 
